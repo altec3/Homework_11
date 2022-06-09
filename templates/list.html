@@ -11,5 +11,22 @@
     <a href="/candidate/{{ candidate.id }}">{{ candidate.name }}</a>
 </p>
 {% endfor %}
+<hr>
+<div>
+    <form action="/search/">
+        <fieldset>
+            <legend>Фильтр по имени:</legend>
+            <input type="text" name="name" placeholder="Введите имя кандидата"><br><br>
+            <input type="submit" value="Найти">
+        </fieldset>
+    </form>
+    <form action="/skill/">
+        <fieldset>
+            <legend>Фильтр по навыку:</legend>
+            <input type="text" name="skill" placeholder="Введите навык кандидатов"><br><br>
+            <input type="submit" value="Найти">
+        </fieldset>
+    </form>
+</div>
 </body>
 </html>

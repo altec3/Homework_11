@@ -54,7 +54,7 @@ def get_candidates_by_skill(skill_name: str) -> list[dict] | None:
     candidates = []
     lst: list[dict] = load_candidates_from_json()
     for candidate in lst:
-        skills: list = candidate["skills"].lower().split(",")
+        skills: list = candidate["skills"].lower().split(", ")
         if skill_name.lower() in skills:
             candidates.append(candidate)
     if candidates:

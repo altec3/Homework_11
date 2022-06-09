@@ -1,4 +1,4 @@
-from flask import Flask, render_template, escape
+from flask import Flask, render_template, escape, request
 from utils import load_candidates_from_json, get_candidate_by_id, get_candidates_by_name, get_candidates_by_skill
 
 
@@ -13,20 +13,28 @@ def main_page():
 
 @app.route("/candidate/<int:uid>")
 def candidate_page(uid: int):
-    candidate = get_candidate_by_id(uid)
-    return render_template("card.html", candidate=candidate)
+    candidate: dict = get_candidate_by_id(uid)
+    if candidate:
+        return render_template("card.html", candidate=candidate)
+    return "<h1>Кандидата с таким ID не существует</h1>"
 
 
-@app.route("/search/<candidate_name>")
-def filter_by_name_page(candidate_name: str):
+@app.route("/search/")
+def filter_by_name_page():
+    candidate_name: str = request.args.get("name")
     candidates = get_candidates_by_name(escape(candidate_name))
-    return render_template("search.html", list=candidates)
+    if candidates:
+        return render_template("search.html", list=candidates)
+    return "<h1>Совпадений не обнаружено</h1>"
 
 
-@app.route("/skill/<skill>")
-def filter_by_skill_page(skill: str):
+@app.route("/skill/")
+def filter_by_skill_page():
+    skill: str = request.args.get("skill")
     candidates = get_candidates_by_skill(escape(skill))
-    return render_template("skill.html", skill=skill, list=candidates)
+    if candidates:
+        return render_template("skill.html", skill=skill, list=candidates)
+    return "<h1>Совпадений не обнаружено</h1>"
 
 
 if __name__ == "__main__":
