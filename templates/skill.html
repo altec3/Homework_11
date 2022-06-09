@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Фильтр по навыкам</title>
+</head>
+<body>
+<div>
+    <a href="/">Все кандидаты</a>
+</div>
+<hr>
+<h1>Найдено с навыком {{ skill|title }}: {{ list|length }}</h1>
+{% for candidate in list %}
+<p>
+    <a href="/candidate/{{ candidate.id }}">{{ candidate.name }}</a>
+</p>
+{% endfor %}
+</body>
+</html>
